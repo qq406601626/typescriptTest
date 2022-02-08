@@ -256,6 +256,7 @@ class jiekoujichenglei4 extends jiekoujichenglei1 { // 没有实现接口，所�
 
 }
 
+// @ts-ignore
 class jiekoujichenglei5 implements jiekoujichenglei2 {
     // error : 这意味着当你创建了一个接口继承了一个拥有私有或受保护的成员的类时，这个接口类型只能被这个类或其子类所实现（implement）。
     // jiekoujichenglei5不是jiekoujichenglei1的子类，所以不能实现jiekoujichenglei2接口
