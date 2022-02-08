@@ -156,18 +156,110 @@ class leileixingIngterface2 implements leileixingInterface1 {
 // }
 
 // class Clock implements ClockConstructor {
-    // currentTime: Date;
-    // constructor(h: number, m: number) { } // error
+// currentTime: Date;
+// constructor(h: number, m: number) { } // error
 // }
 // 这里因为当一个类实现了一个接口时，只对其实例部分进行类型检查。
 // constructor存在于类的静态部分，所以不在检查的范围内。
 // 解决：
-interface jiekoushengminggouzaoqi{
-    new(prop1:string,prop2:number,prop3:boolean):jiekouInstance
+interface jiekoushengminggouzaoqi {
+    new(prop1: string, prop2: number, prop3: boolean): jiekouInstance // 声明构造器验证
 }
-interface jiekouInstance{
-    f1():boolean
+
+interface jiekouInstance {
+    f1(): boolean
 }
-let yanzhenggouzaoqiAnddedaoinstance = function (constructor){
+
+let yanzhenggouzaoqiAnddedaoinstance = function (constructor: jiekoushengminggouzaoqi, prop1: string, prop2: number, prop3: boolean): jiekouInstance {
+    return new constructor(prop1, prop2, prop3) // 在这里进行构造器的验证
+}
+
+class gouzaoqiyanzhengClass1 implements jiekouInstance {
+    constructor(prop1: string, prop2: number, prop3: boolean) {
+        console.log(prop1, prop2, prop3)
+    }
+
+    f1() {
+        return true
+    }
+}
+
+let gouzaoqiyanzhengInstance1 = yanzhenggouzaoqiAnddedaoinstance(gouzaoqiyanzhengClass1, '1', 1, true)
+
+// 接口继承
+// 和类一样，接口也可以相互继承
+// 一个接口可以继承多个接口，创建出多个接口的合成接口。
+interface jiekoujicheng1 {
+    prop1: string
+}
+
+interface jiekoujicheng2 {
+    prop2: string
+}
+
+interface jiekoujicheng3 extends jiekoujicheng1, jiekoujicheng2 { // 接口多继承
+    prop3: number
+}
+
+class jiekoujichengLei implements jiekoujicheng3 {
+    prop1: string // 需要实现三个属性
+    prop2: string // 需要实现三个属性
+    prop3: number // 需要实现三个属性
+
+    constructor() {
+    }
+}
+
+// 混合类型
+interface hunheleixing1 {
+    (prop1: string): string // 作为函数
+    prop2: number
+
+    f1(): void
 
 }
+
+function getHunheleixing1Instance(): hunheleixing1 {
+    let hunheleixing1Instance = <hunheleixing1>function (prop1: string) {
+    }; // 声明函数然后类型断言
+    hunheleixing1Instance.prop2 = 1 // 对函数添加属性
+    hunheleixing1Instance.f1 = function () {
+    } // 对函数添加属性
+    return hunheleixing1Instance
+}
+
+let hunheleixing1Instance = getHunheleixing1Instance()
+hunheleixing1Instance('1') // 可以作为函数使用
+console.log(hunheleixing1Instance.prop2) // 可以输出函数的属性
+hunheleixing1Instance.f1() // 可以调用函数的函数属性
+
+// 接口继承类
+// 当接口继承了一个类类型时，它会继承类的成员但不包括其实现。
+// 接口同样会继承到类的private和protected成员，这意味着当你创建了一个接口继承了一个拥有私有或受保护的成员的类时，这个接口类型只能被这个类或其子类所实现（implement）。
+class jiekoujichenglei1 {
+    private prop1: any
+}
+
+interface jiekoujichenglei2 extends jiekoujichenglei1 {
+    // 继承类后，隐式声明了prop1的定义
+    f1(): void
+}
+
+class jiekoujichenglei3 extends jiekoujichenglei1 implements jiekoujichenglei2 {
+    // 继承类后，继承了类的prop1属性，继而隐式实现了接口的prop1属性
+    // jiekoujichenglei3是jiekoujichenglei1的子类，所以可以实现jiekoujichenglei2
+    f1() {
+    }
+}
+
+class jiekoujichenglei4 extends jiekoujichenglei1 { // 没有实现接口，所以不用声明任何方法
+
+}
+
+class jiekoujichenglei5 implements jiekoujichenglei2 {
+    // error : 这意味着当你创建了一个接口继承了一个拥有私有或受保护的成员的类时，这个接口类型只能被这个类或其子类所实现（implement）。
+    // jiekoujichenglei5不是jiekoujichenglei1的子类，所以不能实现jiekoujichenglei2接口
+    f1() {
+    }
+}
+
