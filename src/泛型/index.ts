@@ -20,6 +20,7 @@ fanxing3('1')
 // 使用泛型变量(泛型变量指的是ca形参)
 function funxingbianliang1<T>(arg: T): T {
     // console.log(arg.length) // error：T可以是任何类型，当为number时不存在length属性
+    // 可以参照下方的泛型约束写法
     return arg
 }
 
@@ -90,3 +91,54 @@ fanxingleiInstance.add = function (arg) {
 }
 fanxingleiInstance.add2(1)
 
+// 泛型约束
+interface fanxingyueshu1 {
+    length: number
+}
+
+function fanxingyueshu2<T extends fanxingyueshu1>(arg: T): T { // 泛型T继承了fanxingyueshu1接口
+    console.log(arg.length) // 所以，这里可以调用.length属性
+    return arg
+}
+
+// fanxingyueshu2(3) // error : 参数没有.length属性
+fanxingyueshu2([])
+fanxingyueshu2('1') // 字符串有.length属性
+fanxingyueshu2({length: 1})
+
+// 在泛型里使用类类型
+function fanxingshiyongleileixing1<T>(constructor: { new(): T }): T {
+    // 注意声明constructor的写法
+    return new constructor()
+}
+
+function fanxingshiyongleileixing2<T>(constructor: new () => T): T {
+    // 注意声明constructor的写法
+    return new constructor()
+}
+
+// 高级例子
+class Animal {
+    prop1: number
+}
+
+class ZooKeeper {
+    prop2: string
+}
+
+class BeeKeeper {
+    prop3: boolean
+}
+
+class Bee extends Animal {
+    keeper: BeeKeeper
+}
+
+class Lion extends Animal {
+    keeper: ZooKeeper
+}
+function createInstance<A extends Animal>(c:new ()=>A):A{
+    return  new c()
+}
+createInstance<Bee>(Bee) // 显示传入泛型类型
+createInstance(Lion) // 隐式传入泛型类型
