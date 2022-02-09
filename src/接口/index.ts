@@ -88,6 +88,10 @@ interface hanshuleixing1 {
 let hanshuleixing2: hanshuleixing1 = function (prop1, prop2) {
     return true
 }
+// ==>可以简写成
+let hanshuleixing3: { (prop1: number): number } = function (prop1) {
+    return prop1
+}
 
 // 可索引的类型
 // TypeScript支持两种索引签名：字符串和数字。
