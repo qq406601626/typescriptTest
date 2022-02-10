@@ -37,3 +37,5 @@ function isNumber(arg1:number|string):arg1 is number{
 //     pet.fly();
 // }
 // 注意TypeScript不仅知道在 if分支里 pet是 Fish类型； 它还清楚在 else分支里，一定 不是 Fish类型，一定是 Bird类型。
+
+// typeof类型保护
