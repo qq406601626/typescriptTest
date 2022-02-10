@@ -268,3 +268,9 @@ class jiekoujichenglei5 implements jiekoujichenglei2 {
     }
 }
 
+// 接口重载
+interface chongzai{
+    utcOffset(): number;
+    utcOffset(b: number|string): number;
+}
+
