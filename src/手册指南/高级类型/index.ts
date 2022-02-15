@@ -65,3 +65,17 @@ type leixingbieming5<T> = { value: T, value2: leixingbieming5<T> } // 类型别�
 // 1、接口创建了一个新的名字，可以在其它任何地方使用。类型别名并不创建新名字。
 // 2、类型别名不能被 extends和 implements（自己也不能 extends和 implements其它类型）
 // 3、如果你无法通过接口来描述一个类型并且需要使用联合类型或元组类型，这时通常会使用类型别名
+
+
+// 字符串字面量类型
+// 字符串字面量类型允许你指定字符串必须的固定值
+// 通过结合联合类型，你可以实现类似枚举类型的字符串
+type zifuchuanzimianliangleixing = "ease-in" | "ease-out" | "ease-in-out";
+let zifuchuanzimianliangleixing:zifuchuanzimianliangleixing = 'ease-in' // ok
+// let zifuchuanzimianliangleixing2:zifuchuanzimianliangleixing = '1' // Error
+function createElement(tagName: "img"): HTMLImageElement // 区分函数重载
+function createElement(tagName: "input"): HTMLInputElement // 区分函数重载
+function createElement(tagName: string): any{}
+
+// 枚举成员类型
+
