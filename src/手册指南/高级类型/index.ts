@@ -77,5 +77,5 @@ function createElement(tagName: "img"): HTMLImageElement // 区分函数重载
 function createElement(tagName: "input"): HTMLInputElement // 区分函数重载
 function createElement(tagName: string): any{}
 
-// 枚举成员类型
+// 可辨识联合
 
