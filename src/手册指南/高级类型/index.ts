@@ -71,11 +71,27 @@ type leixingbieming5<T> = { value: T, value2: leixingbieming5<T> } // 类型别�
 // 字符串字面量类型允许你指定字符串必须的固定值
 // 通过结合联合类型，你可以实现类似枚举类型的字符串
 type zifuchuanzimianliangleixing = "ease-in" | "ease-out" | "ease-in-out";
-let zifuchuanzimianliangleixing:zifuchuanzimianliangleixing = 'ease-in' // ok
+let zifuchuanzimianliangleixing: zifuchuanzimianliangleixing = 'ease-in' // ok
 // let zifuchuanzimianliangleixing2:zifuchuanzimianliangleixing = '1' // Error
 function createElement(tagName: "img"): HTMLImageElement // 区分函数重载
 function createElement(tagName: "input"): HTMLInputElement // 区分函数重载
-function createElement(tagName: string): any{}
+function createElement(tagName: string): any {
+}
 
+// 测试element-ui复杂类型
+type ExtractPropTypes<T> = { // T:{ test: U } => { test: number }
+    key: {
+        type: T,
+        required: true
+    }
+    // ==> key : {
+    //  type : {
+    //     test:number
+    //  }
+    // }
+}
+type ResolveProp<U> = ExtractPropTypes<{ test: U }>  // U : number
+let prop: ResolveProp<number> = {key: {required: true, type: {test: 11}}}
 // 可辨识联合
+
 
