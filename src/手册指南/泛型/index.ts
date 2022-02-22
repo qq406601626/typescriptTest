@@ -10,6 +10,22 @@ bool biggerThan(const T& lhs, const T& rhs)
     return lhs > rhs;
 }
 */
+interface Person<T>{
+    name:string,
+    age:T,
+    child:Person<T>
+}
+// ==> 解析为：
+/**
+ * template <T>
+ * Person(){
+ *   name:string,
+ *   age:T,
+ *   child:Person<T>()
+ * }
+ * */
+
+
 function fanxing1(arg: number): number { // 传入参数类型和返回类型一致时，可以使用泛型
     return arg
 }

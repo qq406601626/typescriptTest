@@ -54,11 +54,13 @@ function fixed(name: string | null): string {
 
 // 类型别名
 // 类型别名会给一个类型起个新名字。
+// 起别名不会新建一个类型 - 它创建了一个新 名字来引用那个类型。
 type leixingbieming = string
 type leixingbieming2 = () => leixingbieming
 type leixingbieming3 = leixingbieming | leixingbieming2
 type leixingbieming4<T> = { value: T } // 创建一个泛型类型别名
 type leixingbieming5<T> = { value: T, value2: leixingbieming5<T> } // 类型别名来在属性里引用自己
+
 
 // 接口 vs. 类型别名
 // 类型别名可以像接口一样；然而，仍有一些细微差别：
