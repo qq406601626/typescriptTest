@@ -1,3 +1,15 @@
+// 理解泛型：
+// 何谓泛型编程？说白了就是把元素类型变为了参数！
+// 泛型编程是一种基于参数化的编程技巧：可以使用类型参数化另一种类型；
+// 可以把泛型理解模板函数，像如下定义：
+/*
+在引用泛型之前需要先传入一个变量参数
+template<typename T>
+bool biggerThan(const T& lhs, const T& rhs)
+{
+    return lhs > rhs;
+}
+*/
 function fanxing1(arg: number): number { // 传入参数类型和返回类型一致时，可以使用泛型
     return arg
 }
@@ -100,6 +112,10 @@ function fanxingyueshu2<T extends fanxingyueshu1>(arg: T): T { // 泛型T继承�
     console.log(arg.length) // 所以，这里可以调用.length属性
     return arg
 }
+// 一个问题出现了，众所周知Comparable是一个接口那么为什么要用关键字extends 而不是 implements呢？　
+// 记法：<T extends BoundingType > 表示T应该是绑定类型的子类型，T和绑定类型都可以是类，也可以是接口。
+// 选择关键字extends的原因是更接近于子类的概念。而且java设计者也不打算在语言中再添加一个新关键字了。
+
 
 // fanxingyueshu2(3) // error : 参数没有.length属性
 fanxingyueshu2([])
