@@ -60,7 +60,8 @@ type leixingbieming2 = () => leixingbieming
 type leixingbieming3 = leixingbieming | leixingbieming2
 type leixingbieming4<T> = { value: T } // 创建一个泛型类型别名
 type leixingbieming5<T> = { value: T, value2: leixingbieming5<T> } // 类型别名来在属性里引用自己
-
+// 类型别名不能出现在声明右侧的任何地方(除非是泛型类型。因为泛型类型可以理解成模板函数，而普通类型就是一个变量)
+type Yikes = Array<Yikes>; // error
 
 // 接口 vs. 类型别名
 // 类型别名可以像接口一样；然而，仍有一些细微差别：

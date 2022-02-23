@@ -28,6 +28,4 @@
 // template<T>
 
 
-interface Test<T>{
-    name:Test<T>
-}
+
