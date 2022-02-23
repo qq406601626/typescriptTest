@@ -153,4 +153,12 @@ let person: suoyinleixing = {
     country:'beijing'
 };
 let suoyinResult: string[] = pluck(person, ['name','address','country']); // ok, string[]
-suoyinResult：[ 'Jarid', 'china', 'beijing' ]
+// suoyinResult：[ 'Jarid', 'china', 'beijing' ]
+
+// 索引类型和字符串索引签名
+interface Map<T> {
+    name:T,
+    [key: number]: T;
+}
+let keys: keyof Map<number>; // string
+let value: Map<number>[123]; // number; 这里的123可以'name'或任意数字，目的是获得对应属性的返回值的类型
