@@ -21,11 +21,26 @@
 // }
 
 
-
-
-
 // type LinkedList<T> = T & { next: LinkedList<T> };
 // template<T>
 
-
+// function pluck<T,K extends keyof T>(o:T,names:K[]):T[K][]{
+//     return names.map(n=>o[n])
+// }
+// interface suoyinleixing {
+//     name: string;
+//     age: number;
+//     gender:string;
+//     address:string,
+//     country:string
+// }
+// let person: suoyinleixing = {
+//     name: 'Jarid',
+//     age: 35,
+//     gender:'man',
+//     address:'china',
+//     country:'beijing'
+// };
+// let suoyinResult: string[] = pluck(person, ['name','address','country']); // ok, string[]
+// console.log(suoyinResult)
 

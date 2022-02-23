@@ -95,7 +95,62 @@ type ExtractPropTypes<T> = { // T:{ test: U } => { test: number }
 }
 type ResolveProp<U> = ExtractPropTypes<{ test: U }>  // U : number
 let prop: ResolveProp<number> = {key: {required: true, type: {test: 11}}}
+
 // 可辨识联合
+// 可辨识联合需要三个要素：
+// 1、具有普通的单例类型属性— 可辨识的特征。
+// 2、一个类型别名包含了那些类型的联合— 联合。
+// 3、此属性上的类型保护。
+// 也就是说每个但类型要有一个可以辨识的属性，且每个类型的其它属性不能存在相同的。
+interface SquareA {
+    kind: "square"; // 要素属性
+    size: number;
+}
+interface RectangleB {
+    kind: "rectangle"; // 要素属性
+    width: number;
+    height: number;
+}
+interface CircleC {
+    kind: "circle"; // 要素属性
+    radius: number;
+}
+type ShapeA = SquareA | RectangleB | RectangleB
+let shapeInstance:ShapeA = {
+    kind:'rectangle', // 当输入kind为rectangle时，会自动推断为RectangleB类型
+    width:1,
+    height:1
+}
 
-
-
+// 索引类型
+// 使用索引类型，编译器就能够检查使用了动态属性名的代码。
+// 例如，一个常见的JavaScript模式是从对象中选取属性的子集：
+// function pluck(o, names) {
+//     return names.map(n => o[n]);
+// }
+// 下面是如何在TypeScript里使用此函数，通过 索引类型查询和 索引访问操作符：
+function pluck<T,K extends keyof T>(o:T,names:K[]):T[K][]{
+    // keyof T， 索引类型查询操作符。
+    // 对于任何类型 T， keyof T的结果为 T上已知的公共属性名的联合。
+    // keyof {name:string;age:number}; ==> 'name' | 'age' 。
+    // keyof {name:string;age:number} 可与'name' | 'age'互相替换
+    // K extend keyof T 表示 K 是 T 的子类型，这里是一个类型约束声明。
+    // 比如 type T = "a" | "b" | "c";，那么 K 可以是 "a"，也可以是 "a" | "c" 或者 "a" | "b" | "c" 等
+    return names.map(n=>o[n])
+}
+interface suoyinleixing {
+    name: string;
+    age: number;
+    gender:string;
+    address:string,
+    country:string
+}
+let person: suoyinleixing = {
+    name: 'Jarid',
+    age: 35,
+    gender:'man',
+    address:'china',
+    country:'beijing'
+};
+let suoyinResult: string[] = pluck(person, ['name','address','country']); // ok, string[]
+suoyinResult：[ 'Jarid', 'china', 'beijing' ]
