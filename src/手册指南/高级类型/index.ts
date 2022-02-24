@@ -176,6 +176,7 @@ interface yingsheleixing {
     name: string;
     age: number
 }
+
 // 声明一个转换类型（类似于一个转换方法）
 type yingsheleixingzhuanhuan<T> = {
     readonly [K in keyof T]: T[K]
@@ -188,3 +189,10 @@ let yingsheleixingInstance: yingsheleixingResult = {
     age: 18
 }
 // yingsheleixingInstance.age = 20 // Error ：age 为readonly
+// 最简单的映射类型和它的组成：
+type KeysAAA = 'option1' | 'option2';
+type FlagsAAA = { [K in KeysAAA]: boolean }
+let flagsAAAInstance: FlagsAAA = {
+    option1: true,
+    option2: false,
+}
