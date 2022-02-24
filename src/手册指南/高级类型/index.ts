@@ -106,20 +106,23 @@ interface SquareA {
     kind: "square"; // 要素属性
     size: number;
 }
+
 interface RectangleB {
     kind: "rectangle"; // 要素属性
     width: number;
     height: number;
 }
+
 interface CircleC {
     kind: "circle"; // 要素属性
     radius: number;
 }
+
 type ShapeA = SquareA | RectangleB | RectangleB
-let shapeInstance:ShapeA = {
-    kind:'rectangle', // 当输入kind为rectangle时，会自动推断为RectangleB类型
-    width:1,
-    height:1
+let shapeInstance: ShapeA = {
+    kind: 'rectangle', // 当输入kind为rectangle时，会自动推断为RectangleB类型
+    width: 1,
+    height: 1
 }
 
 // 索引类型
@@ -129,36 +132,59 @@ let shapeInstance:ShapeA = {
 //     return names.map(n => o[n]);
 // }
 // 下面是如何在TypeScript里使用此函数，通过 索引类型查询和 索引访问操作符：
-function pluck<T,K extends keyof T>(o:T,names:K[]):T[K][]{
+function pluck<T, K extends keyof T>(o: T, names: K[]): T[K][] {
     // keyof T， 索引类型查询操作符。
     // 对于任何类型 T， keyof T的结果为 T上已知的公共属性名的联合。
     // keyof {name:string;age:number}; ==> 'name' | 'age' 。
     // keyof {name:string;age:number} 可与'name' | 'age'互相替换
     // K extend keyof T 表示 K 是 T 的子类型，这里是一个类型约束声明。
     // 比如 type T = "a" | "b" | "c";，那么 K 可以是 "a"，也可以是 "a" | "c" 或者 "a" | "b" | "c" 等
-    return names.map(n=>o[n])
+    return names.map(n => o[n])
 }
+
 interface suoyinleixing {
     name: string;
     age: number;
-    gender:string;
-    address:string,
-    country:string
+    gender: string;
+    address: string,
+    country: string
 }
+
 let person: suoyinleixing = {
     name: 'Jarid',
     age: 35,
-    gender:'man',
-    address:'china',
-    country:'beijing'
+    gender: 'man',
+    address: 'china',
+    country: 'beijing'
 };
-let suoyinResult: string[] = pluck(person, ['name','address','country']); // ok, string[]
+let suoyinResult: string[] = pluck(person, ['name', 'address', 'country']); // ok, string[]
 // suoyinResult：[ 'Jarid', 'china', 'beijing' ]
 
 // 索引类型和字符串索引签名
 interface Map<T> {
-    name:T,
+    name: T,
+
     [key: number]: T;
 }
+
 let keys: keyof Map<number>; // string
 let value: Map<number>[123]; // number; 这里的123可以'name'或任意数字，目的是获得对应属性的返回值的类型
+
+// 映射类型
+// 假如有一个接口，要把该接口所有变成readonly：
+interface yingsheleixing {
+    name: string;
+    age: number
+}
+// 声明一个转换类型（类似于一个转换方法）
+type yingsheleixingzhuanhuan<T> = {
+    readonly [K in keyof T]: T[K]
+}
+// type yingsheleixingResult = yingsheleixingzhuanhuan<yingsheleixing>
+// 或者简写成
+type yingsheleixingResult = yingsheleixingzhuanhuan<{ name: string; age: number }>
+let yingsheleixingInstance: yingsheleixingResult = {
+    name: '111',
+    age: 18
+}
+// yingsheleixingInstance.age = 20 // Error ：age 为readonly

@@ -44,3 +44,10 @@
 // let suoyinResult: string[] = pluck(person, ['name','address','country']); // ok, string[]
 // console.log(suoyinResult)
 
+type ReadonlyAAA<T> = {
+    readonly [P in keyof T]: T[P];
+}
+type PartialAAA<T> = {
+    [P in keyof T]?: T[P];
+}
+type PersonPartial = PartialAAA<{name:string,age:number}>
