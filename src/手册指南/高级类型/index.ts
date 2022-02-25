@@ -190,6 +190,7 @@ let yingsheleixingInstance: yingsheleixingResult = {
 }
 // yingsheleixingInstance.age = 20 // Error ：age 为readonly
 // 最简单的映射类型和它的组成：
+// 对于对象要使用keyof。对于联合类型只需要使用in即可，无需再加上keyof
 type KeysAAA = 'option1' | 'option2';
 type FlagsAAA = { [K in KeysAAA]: boolean }
 let flagsAAAInstance: FlagsAAA = {
