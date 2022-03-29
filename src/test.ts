@@ -36,7 +36,46 @@
 // const res = mapObject(names,(s)=>s.length)
 // console.log(res)
 
-
+// 多看
+// 相当于声明了一个函数，返回值为一个对象，对象内使用了形参
+// type Proxy<T> = {
+//     get(): T,
+//     set(v: T): void
+// }
+// type Proxify<T> = {
+//     [P in keyof T]: Proxy<T[P]>
+// }
+//
+// function proxify<T>(obj: T): Proxify<T> {
+//     const res = <Proxify<T>>{}
+//     for (const key in obj) {
+//         res[key] = {
+//             get: () => obj[key],
+//             set: (v) => {
+//                 obj[key] = v
+//             }
+//         }
+//     }
+//     return res
+// }
+//
+// let props = {
+//     name: 'zhangsan',
+//     age: 18
+// }
+// let proxyProps = proxify(props)
+// console.log(proxyProps)
+//
+// function unproxify<T>(t: Proxify<T>): T {
+//     let res = <T>{}
+//     for (const k in t) {
+//         res[k] = t[k].get()
+//     }
+//     return res
+// }
+//
+// let originalProps = unproxify(proxyProps)
+// console.log(originalProps)
 
 
 

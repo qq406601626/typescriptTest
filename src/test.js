@@ -1,32 +1,33 @@
 // function getValues<O, K extends keyof O>(obj: O, keys: Array<K>): Array<O[K]> {
 //     return keys.map(key => obj[key])
 // }
-// type objs<T> = {
-//     [key:string] : T
-// }
-// type objsNumber = objs<number>
-// let keysObj: objs<number> = {
-//     age:18
-// }
-// let keyType:objsNumber['name']
-// function pick<O, K extends keyof O>(obj: O, keys: Array<K>): Pick<O, K> {
-//     const res: any = {}
-//     keys.forEach(key => {
-//         res[key] = obj[key]
-//     })
-//     return res
-// }
-function mapObject(obj, f) {
+function proxify(obj) {
     var res = {};
-    for (var objKey in obj) {
-        res[objKey] = f(obj[objKey]);
+    var _loop_1 = function (key) {
+        res[key] = {
+            get: function () { return obj[key]; },
+            set: function (v) {
+                obj[key] = v;
+            }
+        };
+    };
+    for (var key in obj) {
+        _loop_1(key);
     }
     return res;
 }
-var names = {
+var props = {
     name: 'zhangsan',
-    nickName: 'lisi',
-    addr: 'beijing'
+    age: 18
 };
-var res = mapObject(names, function (s) { return s.length; });
-console.log(res);
+var proxyProps = proxify(props);
+console.log(proxyProps);
+function unproxify(t) {
+    var res = {};
+    for (var k in t) {
+        res[k] = t[k].get();
+    }
+    return res;
+}
+var originalProps = unproxify(proxyProps);
+console.log(originalProps);
