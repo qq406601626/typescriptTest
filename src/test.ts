@@ -78,4 +78,14 @@
 // console.log(originalProps)
 
 
+// type MapToPromise<T> = {
+//     [P in keyof T]: Promise<T[P]>
+// }
+// type Tuple = [number,string,boolean]
+// type promiseTuple = MapToPromise<Tuple>
+// let tuple1:promiseTuple = [
+//     new Promise((resolve,reject)=>resolve(1)),
+//     new Promise((resolve,reject)=>resolve('1')),
+//     new Promise((resolve,reject)=>resolve(true)),
+// ]
 
