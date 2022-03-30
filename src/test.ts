@@ -89,3 +89,13 @@
 //     new Promise((resolve,reject)=>resolve(true)),
 // ]
 
+// 注意：Type[keyof someType]会过滤掉类型为null/undefined/never的类型
+// type aaa = {
+//     a: string,
+//     b: undefined,
+//     c: null,
+//     d: number,
+//     e: boolean
+// }
+// type bbb = aaa[keyof aaa]
+
