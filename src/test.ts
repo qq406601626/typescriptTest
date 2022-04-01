@@ -105,6 +105,9 @@
 
 
 
-type aaa<T> = T extends Array<infer U> ? U : T // 判断T是否extends Array，如果是，则根据Array<string> 判断Array<infer U>中的U类型。这里U为string
-type bbb = aaa<Array<string>>
+// type aaa<T> = T extends Array<infer U> ? U : T // 判断T是否extends Array，如果是，则根据Array<string> 判断Array<infer U>中的U类型。这里U为string
+// type bbb = aaa<Array<string>>
+
+
+
 
